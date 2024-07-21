@@ -5,8 +5,10 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -59,7 +61,7 @@ public class AccountTest {
 
     @Test
     public void updateAccountTest() {
-        String realName = "HDKASAA";
+        String realName = Instant.now().toString();
 
         Response responseRealName = RestAssured
                 .given()
@@ -73,7 +75,7 @@ public class AccountTest {
         responseRealName.prettyPrint();
 
         assertEquals(200, responseRealName.statusCode(), "Response status code is not expected");
-        assertTrue(responseRealName.body().asString().contains("Operation successful."));
+        assertTrue(responseRealName.body().asString().contains("Real name successfully updated"));
 
         Response response = RestAssured
                 .given()
